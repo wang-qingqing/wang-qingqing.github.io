@@ -77,7 +77,8 @@ theme: maupassant
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
+#repo: https://github.com/wang-qingqing/wang-qingqing.github.io.git
 deploy:
   type: git
-  repo: https://github.com/wang-qingqing/wang-qingqing.github.io.git
+  repo: git@github.com:wang-qingqing/wang-qingqing.github.io.git
   branch: master
