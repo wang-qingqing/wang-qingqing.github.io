@@ -31,4 +31,4 @@ tags:
 
 5. 在source文件夹下新建页面 
 
-        hexo new page 'new page under source'    
+        hexo new page 'new page under source'                      
