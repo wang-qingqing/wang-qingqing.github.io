@@ -14,6 +14,8 @@ tags:
         git config --global user.name "your name"
         git config --global user.email "your_email@youremail.com"
 
+2. github上的contributions是根据每个项目的默认分支来统计的。
+设置默认分支的操作是:XXX项目 -> Setting -> Branches ->Default branch。
 
 **Git常用命令**
 
