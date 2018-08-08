@@ -1,7 +1,7 @@
 ---
 title: CSS世界
 date: 2018-08-05
-categories:  CSS世界
+categories:  CSS世界系列
 tags:
     - CSS
 toc: true
@@ -11,7 +11,7 @@ toc: true
 <!--more-->
 
 ### 概述
-[【CSS世界】第1章-概述](https://wang-qingqing.github.io/2018/08/08/%E3%80%90CSS%E4%B8%96%E7%95%8C%E3%80%91%E7%AC%AC1%E7%AB%A0-%E6%A6%82%E8%BF%B0/)
+[【CSS世界系列】第1章-概述](https://wang-qingqing.github.io/2018/08/08/%E3%80%90CSS%E4%B8%96%E7%95%8C%E3%80%91%E7%AC%AC1%E7%AB%A0-%E6%A6%82%E8%BF%B0/)
 ### 需提前了解的术语和概念
 
 ### 流、元素与基本尺寸

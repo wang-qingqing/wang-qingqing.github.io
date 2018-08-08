@@ -1,7 +1,7 @@
 ---
-title: 【CSS世界】第1章-概述
+title: 【CSS世界系列】第1章-概述
 date: 2018-08-08
-categories:  CSS世界
+categories:  CSS世界系列
 tags:
     - CSS
 ---
