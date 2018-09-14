@@ -27,6 +27,7 @@ tags:
         (6)class属性改为className，
             for属性改为htmlFor。
 
-        
+        (7)属性值要使用表达式，用{}替换""
+
 
 
