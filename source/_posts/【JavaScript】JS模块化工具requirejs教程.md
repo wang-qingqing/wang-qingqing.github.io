@@ -1,5 +1,5 @@
 ---
-title: JS模块化工具requirejs教程
+title: 【JavaScript】JS模块化工具requirejs教程
 date: 2018-09-28
 categories: JavaScript 
 tags:
