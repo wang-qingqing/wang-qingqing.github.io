@@ -58,4 +58,8 @@ tags:
             text-align: left;
         }
 
+7. CSS流体布局下的宽度分离原则
 
+        “宽度分离原则”: 
+        
+        width属性不与影响宽度的padding/border（有时候包括margin）属性共存。
