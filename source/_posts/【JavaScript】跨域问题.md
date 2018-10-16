@@ -3,16 +3,17 @@ title: 【JavaScript】跨域问题
 date: 2018-10-08
 categories: JavaScript 
 tags: 跨域 
+toc: true
 ---
 
 总结下跨域问题的知识点。
 
 <!--more-->
-**一、浏览器的同源策略**
+### 浏览器的同源策略
 1. 同源策略限制了从同一个源加载的文档或脚本如何与来自另一个源的资源进行交互。
     这是一个用于隔离潜在恶意文件的重要安全机制。
 
-**二、没有同源策略限制的两大危险场景**
+### 没有同源策略限制的两大危险场景
 1. 针对接口的请求
 
     若没有同源策略，则会引起CSRF攻击。
@@ -39,7 +40,7 @@ tags: 跨域
         const node = iframe.document.getElementById('你输入账号密码的Input')
         console.log(`拿到了这个${node}，我还拿不到你刚刚输入的账号密码吗`)
 
-**三、解决跨域的方法——接口请求**
+### 解决跨域的方法——接口请求
 1. JSONP
     A. 在HTML标签里，一些标签比如script、img这样的获取资源的标签是没有跨域限制的。
 
@@ -99,7 +100,7 @@ tags: 跨域
             }    
         }
 
-**四、解决跨域的方法——DOM查询**
+### 解决跨域的方法——DOM查询
 1. postMessage(**常用**)
     A. window.postMessage()是HTML5的一个接口，用来实现不同窗口不同页面的跨域通讯。  
 
@@ -119,14 +120,18 @@ tags: 跨域
 3. canvas操作图片的跨域问题
     看这篇文章：[解决canvas图片getImageData,toDataURL跨域问题](https://www.zhangxinxu.com/wordpress/2018/02/crossorigin-canvas-getimagedata-cors/)
 
-**五、CSRF攻击<div id="csrf"></div>**
+### CSRF攻击
+<div id="csrf"></div>
 
-**六、cookie<div id="cookie"></div>**
+### cookie
+<div id="cookie"></div>
 
-**七、Cookie/Session的机制与安全<div id="session"></div>**
+### Cookie/Session的机制与安全
+<div id="session"></div>
 
-**八、Web安全测试之XSS<div id="xss"></div>**
+### Web安全测试之XSS
+<div id="xss"></div>
 
-**九、题外话**
+### 题外话
 1. 参考资料： [不要再问我跨域的问题了](https://segmentfault.com/a/1190000015597029)
 
