@@ -47,14 +47,34 @@ git add [dir]
 git add [file1] [file2]
 ```
 
-6. 提交文件到仓库区
+6. 删除文件到暂存区
 ```
 提交暂存区到仓库区
+git rm --cached [file]
+```
+
+7. 查看工作区代码相对于暂存区的差别
+```
+git status
+```
+
+8. 提交文件到本地仓库区
+```
+提交暂存区到本地仓库区
 git commit -m [message]
 
-提交暂存区的指定文件到仓库区
+提交暂存区的指定文件到本地仓库区
 git commit [file1] [file2] -m [messgae]
 
-提交工作区自上次commit之后的变化，直接到仓库区
+提交工作区自上次commit之后的变化，直接到本地仓库区
 git commit -a
+```
+
+9. 同步/推送代码
+```
+先将远程仓库master中的信息同步到本地仓库master中
+git pull origin master
+
+将本地仓库推送到远程仓库
+git push origin master
 ```
