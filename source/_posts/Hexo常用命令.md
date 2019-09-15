@@ -32,3 +32,18 @@ tags:
 5. 在source文件夹下新建页面 
 
         hexo new page 'new page under source'                      
+
+6. 使用hexo d时，可能会遇到“Permission denied”的错误，解决办法：
+```
+生成ssh key：
+ssh-keygen -t rsa -C "github邮箱"
+
+查看ssh的公用密钥：
+cat ~/.ssh/id_rsa.pub
+
+在自己的github账户-> Settings -> SSH and GPG keys -> new SSH key:
+将上面的公用密钥粘贴到这里面。
+
+如果还有问题，重新使用ssh下载代码：
+Clone with SSH 
+```
