@@ -1,0 +1,122 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>【JavaScript】上拉加载下拉刷新 | 元气小七</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">【JavaScript】上拉加载下拉刷新</h1><a id="logo" href="/.">元气小七</a><p class="description">每天都要元气满满的哦~</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">【JavaScript】上拉加载下拉刷新</h1><div class="post-meta">Sep 29, 2018<span> | </span><span class="category"><a href="/categories/JavaScript/">JavaScript</a></span><script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> 阅读</span></span></div><div class="post-content"><p>上拉加载下拉刷新如何实现呢？</p>
+<a id="more"></a>
+<p><strong>一、思路</strong></p>
+<ol>
+<li><p>界面：</p>
+<p> A. 分成两块，上方的刷新文字是一块，下方的内容是一块。</p>
+<p> B. 将上方的提示内容隐藏在屏幕之外：</p>
+<pre><code>.header{
+    width: 100%;
+    height: 1rem;//应该与刷新文字一样的高度
+    position: fixed;
+    z-index: 100;
+}</code></pre></li>
+<li><p>逻辑：（主要有4步）</p>
+<p> A. 监听事件</p>
+<pre><code>//el为下拉的整个节点
+//这里为添加监听
+this.el.addEventListener(&apos;touchstart&apos;, this.refreshTouchStart);
+this.el.addEventListener(&apos;touchmove&apos;, this.refreshTouchMove);
+this.el.addEventListener(&apos;touchend&apos;, this.refreshTouchEnd);
+//记住在不用的时候要移除监听哦
+this.el.removeEventListener(&apos;touchstart&apos;, this.refreshTouchStart);
+this.el.removeEventListener(&apos;touchmove&apos;, this.refreshTouchMovee);
+this.el.removeEventListener(&apos;touchend&apos;, this.refreshTouchEnd);
+//具体的函数，我们直接在位置计算中看</code></pre><p> B. 位置计算</p>
+<p> <strong>下拉刷新的逻辑 = 当前页面的首项在屏幕中且容器向下滑动的距离大于一定值</strong><br> <strong>上拉加载的逻辑 = 当前页面已滑动到底部</strong></p>
+<p> C. 控制页面变化</p>
+<p> D. 数据更新包</p>
+<p> E. 核心代码</p>
+<pre><code>//代码中包含界面变化和数据更新，仔细看哦
+refreshTouchStart(e) {    
+    let touch = e.changedTouches[0];    
+    this.tipText = &apos;下拉刷新&apos;;//下拉提示文字    
+    this.startY = touch.clientY;//获得当前按下点的纵坐标
+}
+
+refreshTouchMove(e) {    
+    //与本逻辑无关，滑动时隐藏底部作用 
+    this.$store.commit(&apos;bottomShowFalse&apos;);   
+    let touch = e.changedTouches[0];    
+    //获得滑动的距离  
+    let _move = touch.clientY - this.startY;  
+    //滑动到底部标识  
+    this.bottomFlag = $(&apos;.present-box&apos;).offset().top +     
+    $(&apos;.present-box&apos;).height() - document.body.clientHeight &lt;= 40; 
+
+    //内容主体超出了一个头部的距离
+    if ($(&apos;.present-box&apos;).offset().top &gt;= this.headerHeight) {        
+        //滑动距离&gt;0代表下拉，&lt;1000是为了防止神人无限拉阿拉 
+        if (_move &gt; 0 &amp;&amp; _move &lt; 1000) {
+            //根据拉的距离，实现界面上的变化（界面变化）
+            this.el.style.marginTop = _move + &apos;px&apos;;
+            //记录滑动的距离，在松手后让他滑啊滑滑回去
+            this.moveDistance = touch.clientY - this.startY;
+            //拉到一定程度再下拉刷新，防止误操作                
+            if (_move &gt; 50) {            
+                this.tipText = &apos;松开即可刷新&apos;//上面有了            
+            }        
+        }    
+    }
+}
+
+refreshTouchEnd() {    
+    //松开后底部就biu的出现啦 
+    this.$store.commit(&apos;bottomShowTrue&apos;);
+    //若符合上拉加载的条件，则直接进行数据更新    
+    if (this.bottomFlag) {       
+        this.$emit(&apos;loadBottom&apos;);    
+    }    
+
+    let that = this;    
+    //拉了一定距离才触发加载动作 
+    if (this.moveDistance &gt; 50) {       
+        this.tipText = &apos;数据加载中...&apos;; 
+        //通过一个promise，让数据更新结束后再进行界面变化。
+        //也可以采用其他的方式，如async await方式       
+        let timer = setInterval(function () {   
+            //如果拉的很长，一次性弹回去影响用户体验，
+            //所以先让他弹到50的高度，然后再进行数据更新                     
+            that.el.style.marginTop = 
+                that.el.style.marginTop.split(&apos;px&apos;)[0] - 5 + &apos;px&apos;;
+            if (Number(that.el.style.marginTop.split(&apos;px&apos;)[0]) &lt;= 50) {
+                //小于50后就不进行界面变化了，先进行数据更新再变化                
+                clearInterval(timer);                
+                new Promise((resolve, reject) =&gt; {       
+                    //通知父控件，下拉刷新条件满足了，你更新吧              
+                    that.$emit(&apos;loadTop&apos;, resolve, reject);              
+                }).then(() =&gt; {                  
+                    that.resetBox();                
+                }).catch(() =&gt; {                  
+                    that.resetBox();//界面恢复（也就是弹回去啦）                
+                });           
+            }       
+        }, 1);
+    } else {        
+        this.resetBox();    
+    }
+}
+
+resetBox() {    
+    let that = this;    //使用定时器的方式，biubiubiu的实现滑动界面刷新的效果。    
+    if (this.moveDistance &gt; 0) {        
+        let timer = setInterval(function () {            
+            that.el.style.marginTop =             
+            that.el.style.marginTop.split(&apos;px&apos;)[0] - 1 + &apos;px&apos;;   
+            //这里很重要，不删除，可能看到奇奇怪怪的东西哦               
+            if (Number(that.el.style.marginTop.split(&apos;px&apos;)[0]) &lt;= 0){
+                clearInterval(timer); 
+            }  
+        }, 1)    
+    }    
+    this.moveDistance = 0;    
+}</code></pre></li>
+</ol>
+<p><strong>二、题外话</strong></p>
+<ol>
+<li><p>参考资料： <a href="https://juejin.im/post/5b9091e7e51d450e70423161" target="_blank" rel="noopener">上拉加载下拉刷新了解下</a></p>
+</li>
+<li><p>了解思路即可，目前有多种插件可以直接使用。<br>比如antd-mobile的<a href="https://mobile.ant.design/components/pull-to-refresh-cn/" target="_blank" rel="noopener">PullToRefresh 拉动刷新</a></p>
+</li>
+</ol>
+</div><div class="tags"><a href="/tags/Mobile/">Mobile</a></div><div class="post-nav"><a class="pre" href="/2018/10/08/【JavaScript】跨域问题/">【JavaScript】跨域问题</a><a class="next" href="/2018/09/28/【JavaScript】JS模块化工具requirejs教程/">【JavaScript】JS模块化工具requirejs教程</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"><input type="hidden" name="sitesearch" value="https://wang-qingqing.github.io"></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CSS世界系列/">CSS世界系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/函数式编程入门经典系列/">函数式编程入门经典系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具类/">工具类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/深入React技术栈系列/">深入React技术栈系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/随笔/">随笔</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/keyCode/" style="font-size: 15px;">keyCode</a> <a href="/tags/CSS/" style="font-size: 15px;">CSS</a> <a href="/tags/函数式编程/" style="font-size: 15px;">函数式编程</a> <a href="/tags/Mac/" style="font-size: 15px;">Mac</a> <a href="/tags/Markdown/" style="font-size: 15px;">Markdown</a> <a href="/tags/RequireJS/" style="font-size: 15px;">RequireJS</a> <a href="/tags/Mobile/" style="font-size: 15px;">Mobile</a> <a href="/tags/埋点/" style="font-size: 15px;">埋点</a> <a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a> <a href="/tags/日期/" style="font-size: 15px;">日期</a> <a href="/tags/跨域/" style="font-size: 15px;">跨域</a> <a href="/tags/vue-cli/" style="font-size: 15px;">vue-cli</a> <a href="/tags/React/" style="font-size: 15px;">React</a> <a href="/tags/Git/" style="font-size: 15px;">Git</a> <a href="/tags/Github/" style="font-size: 15px;">Github</a> <a href="/tags/验证码/" style="font-size: 15px;">验证码</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/09/15/Mac常用快捷键/">Mac常用快捷键</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/07/12/【JavaScript】埋点/">【JavaScript】埋点</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/07/10/【JavaScript】日历的键盘事件/">【JavaScript】日历的键盘事件</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/15/【JavaScript】日期处理集锦/">【JavaScript】日期处理集锦</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/17/【JavaScript】移动端上滑加载分页数据/">【JavaScript】移动端上滑加载分页数据</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/27/图形验证码/">图形验证码</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/16/【Vue】vue-cli的配置说明/">【Vue】vue-cli的配置说明</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/08/【JavaScript】跨域问题/">【JavaScript】跨域问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/29/【JavaScript】上拉加载下拉刷新/">【JavaScript】上拉加载下拉刷新</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/28/【JavaScript】JS模块化工具requirejs教程/">【JavaScript】JS模块化工具requirejs教程</a></li></ul></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2019 <a href="/." rel="nofollow">元气小七.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>

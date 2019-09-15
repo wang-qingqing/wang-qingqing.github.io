@@ -1,0 +1,110 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>【JavaScript】日期处理集锦 | 元气小七</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">【JavaScript】日期处理集锦</h1><a id="logo" href="/.">元气小七</a><p class="description">每天都要元气满满的哦~</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">【JavaScript】日期处理集锦</h1><div class="post-meta">Jun 15, 2019<span> | </span><span class="category"><a href="/categories/JavaScript/">JavaScript</a></span><script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> 阅读</span></span></div><div class="post-content"><p>针对日期格式的处理，此文整理了一些常用的方法。</p>
+<a id="more"></a>
+
+<h4 id="1、将日期对象-日期字会串格式化为指定日期字符串"><a href="#1、将日期对象-日期字会串格式化为指定日期字符串" class="headerlink" title="1、将日期对象/日期字会串格式化为指定日期字符串"></a>1、将日期对象/日期字会串格式化为指定日期字符串</h4><p>（1）入参：Date对象<br>（2）出参：string，格式为yyyy-MM-dd hh:mm:ss</p>
+<pre><code>function formatFullDate(sDate,fmt) {
+    var sDate = new Date(sDate),
+        fmt = fmt||&apos;yyyy-MM-dd hh:mm:ss&apos;;
+    var o = {
+        &quot;M+&quot; : sDate.getMonth()+1,                 //月份
+        &quot;d+&quot; : sDate.getDate(),                    //日
+        &quot;h+&quot; : sDate.getHours(),                   //小时
+        &quot;m+&quot; : sDate.getMinutes(),                 //分
+        &quot;s+&quot; : sDate.getSeconds(),                 //秒
+        &quot;q+&quot; : Math.floor((sDate.getMonth()+3)/3), //季度
+        &quot;S&quot;  : sDate.getMilliseconds()             //毫秒
+    };
+    if(/(y+)/.test(fmt)) {
+        fmt=fmt.replace(RegExp.$1, (sDate.getFullYear()+&quot;&quot;).substr(4 - RegExp.$1.length));
+    }
+    for(var k in o) {
+        if(new RegExp(&quot;(&quot;+ k +&quot;)&quot;).test(fmt)){
+            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : ((&quot;00&quot;+ o[k]).substr((&quot;&quot;+ o[k]).length)));
+        }
+    }
+    return fmt;
+}</code></pre><h4 id="2、将日期对象-日期字会串格式化为指定日期字符串"><a href="#2、将日期对象-日期字会串格式化为指定日期字符串" class="headerlink" title="2、将日期对象/日期字会串格式化为指定日期字符串"></a>2、将日期对象/日期字会串格式化为指定日期字符串</h4><p>（1）入参：{object|string}， vArg 可为日期对象或日期字符串，日期对象格式new Date(yyyy, mm,dd)，日期字符串格式yyyy-mm|n-dd|d<br>（2）出参：string yyyy-mm-dd</p>
+<pre><code>function formatStrDate(vArg) {
+    switch (typeof vArg) {
+    case &quot;string&quot;:
+        vArg = vArg.split(/-|\//g);
+        return vArg[0] + &quot;-&quot; + this.formatNum(vArg[1]) + &quot;-&quot;
+                + this.formatNum(vArg[2]);
+        break;
+    case &quot;object&quot;:
+        return vArg.getFullYear() + &quot;-&quot;
+                + this.formatNum(vArg.getMonth() + 1) + &quot;-&quot;
+                + this.formatNum(vArg.getDate());
+        break;
+    }
+}</code></pre><h4 id="3、格式化数字，不足两位前面补0"><a href="#3、格式化数字，不足两位前面补0" class="headerlink" title="3、格式化数字，不足两位前面补0"></a>3、格式化数字，不足两位前面补0</h4><p>（1）入参：number，要格式化的数字<br>（2）出参：string</p>
+<pre><code>function formatNum(num) {
+    return num.toString().replace(/^(\d)$/, &quot;0$1&quot;)
+}</code></pre><h4 id="4、获取指定日期（yyyy-mm-dd）的前13天-后13天数据"><a href="#4、获取指定日期（yyyy-mm-dd）的前13天-后13天数据" class="headerlink" title="4、获取指定日期（yyyy-mm-dd）的前13天/后13天数据"></a>4、获取指定日期（yyyy-mm-dd）的前1<del>3天/后1</del>3天数据</h4><p>（1）入参： sDate为日期字符串（yyyy-mm-dd）；dateName为日期名字。<br>（2）出参：object</p>
+<pre><code>function getThreeDays(sDate, dateName) {
+    var oTmp = {}, aDate = sDate.split(/-|\//g), sDate, i;
+    for (i = 0; i &lt; 7; i++) {
+        sDate = this.formatStrDate(new Date(aDate[0], aDate[1] - 1, aDate[2] - 0 + (i - 3)));
+        oTmp[sDate] = dateName
+                + (i != 3 ? (i &lt; 3 ? &quot;\u524d&quot; : &quot;\u540e&quot;)
+                        + Math.abs(i - 3) + &quot;\u5929&quot; : &quot;&quot;);
+        i &gt; 2
+                &amp;&amp; (_dateMap[sDate] = dateName
+                        + (i != 3 ? (i &lt; 3 ? &quot;\u524d&quot; : &quot;\u540e&quot;)
+                                + Math.abs(i - 3) + &quot;\u5929&quot; : &quot;&quot;))
+    }
+    return oTmp
+}</code></pre><h4 id="5、获取星期信息"><a href="#5、获取星期信息" class="headerlink" title="5、获取星期信息"></a>5、获取星期信息</h4><p>（1）入参：date位Date对象；type为“周”，返回周几，默认是返回星期几的。<br>（2）出参：string类型的星期几</p>
+<pre><code>function getWeek(date,type) {
+    var index = date.getDay();
+    if(type == &quot;周&quot;){
+        var weeks = &quot;周日 周一 周二 周三 周四 周五 周六&quot;.split(&quot; &quot;);
+    }else{
+        var weeks = &quot;星期日 星期一 星期二 星期三 星期四 星期五 星期六&quot;.split(&quot; &quot;);
+    }
+    return weeks[index];
+}</code></pre><h4 id="6、获取开始日期后N天日期、星期信息（不包含开始）"><a href="#6、获取开始日期后N天日期、星期信息（不包含开始）" class="headerlink" title="6、获取开始日期后N天日期、星期信息（不包含开始）"></a>6、获取开始日期后N天日期、星期信息（不包含开始）</h4><p>（1）入参：startDate为开始日期字符串（yyyy-mm-dd），days为天数，format为出参日期格式。<br>（2）出参：Array</p>
+<pre><code>function getDateInfos(startDate, days, format) {
+    format = format || &quot;yyyy-mm-dd&quot;;
+    var dateInfos = [];
+
+    var dateNums = startDate.split(/-|\//g);
+    for(var i = 0; i&lt;= days; i++){
+        var date = new Date(dateNums[0], dateNums[1] - 1, dateNums[2] -0 + i);
+        var dateStr = this.formatStrDate(date);
+
+        var dateInfo = {
+            date: dateStr,
+            week: this.getWeek(date)
+        };
+        dateInfos.push(dateInfo)
+    }
+    return dateInfos;
+}</code></pre><h4 id="7、获取两个日期间的天数"><a href="#7、获取两个日期间的天数" class="headerlink" title="7、获取两个日期间的天数"></a>7、获取两个日期间的天数</h4><p>（1）入参：两个string类型的日期<br>（2）出参：整型的天数</p>
+<pre><code>function daysBetween(date1, date2){
+    var d1 = new Date(date1.replace(&quot;-&quot;, &quot;/&quot;).replace(&quot;-&quot;, &quot;/&quot;)).getTime();
+    var d2 = new Date(date2.replace(&quot;-&quot;, &quot;/&quot;).replace(&quot;-&quot;, &quot;/&quot;)).getTime();
+    return parseInt((d1 - d2)/(1000*60*60*24)); 
+}</code></pre><h4 id="8、解决-ie，火狐浏览器不兼容new-Date"><a href="#8、解决-ie，火狐浏览器不兼容new-Date" class="headerlink" title="8、解决 ie，火狐浏览器不兼容new Date"></a>8、解决 ie，火狐浏览器不兼容new Date</h4><p>(1)入参：string类型的日期<br>(2)出参：Date对象的日期</p>
+<pre><code>function getDateForStringDate(strDate){
+     //切割年月日与时分秒称为数组
+     var s = strDate.split(&quot; &quot;); 
+     var s1 = s[0].split(&quot;-&quot;); 
+     var s2 = s[1].split(&quot;:&quot;);
+     if(s2.length == 2){
+         s2.push(&quot;00&quot;);
+     }
+     return new Date(s1[0],s1[1]-1,s1[2],s2[0],s2[1],s2[2]);
+}</code></pre><h4 id="9、计算日期后若干天的日期"><a href="#9、计算日期后若干天的日期" class="headerlink" title="9、计算日期后若干天的日期"></a>9、计算日期后若干天的日期</h4><p>（1）入参：startDate为Date对象，addDays为整型<br>（2）出参：Date对象的日期</p>
+<pre><code>function addDate(startDate, addDays){
+     startDate = startDate.valueOf();
+     startDate = startDate + Number(addDays) * 24 * 60 * 60 * 1000;
+     return new Date(startDate);
+}</code></pre><h4 id="10、计算日期前若干天的日期"><a href="#10、计算日期前若干天的日期" class="headerlink" title="10、计算日期前若干天的日期"></a>10、计算日期前若干天的日期</h4><p>（1）入参：startDate为Date对象，delDays为整型<br>（2）出参：Date对象的日期</p>
+<pre><code>function delDate(startDate, delDays){
+    startDate = startDate.valueOf();
+     startDate = startDate - Number(delDays) * 24 * 60 * 60 * 1000;
+     return new Date(startDate);
+}</code></pre><h4 id="11、获取几号"><a href="#11、获取几号" class="headerlink" title="11、获取几号"></a>11、获取几号</h4><pre><code>function getDay(days){
+    return new Date(days).getDay();
+}</code></pre></div><div class="tags"><a href="/tags/日期/">日期</a></div><div class="post-nav"><a class="pre" href="/2019/07/10/【JavaScript】日历的键盘事件/">【JavaScript】日历的键盘事件</a><a class="next" href="/2019/05/17/【JavaScript】移动端上滑加载分页数据/">【JavaScript】移动端上滑加载分页数据</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"><input type="hidden" name="sitesearch" value="https://wang-qingqing.github.io"></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CSS世界系列/">CSS世界系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/函数式编程入门经典系列/">函数式编程入门经典系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具类/">工具类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/深入React技术栈系列/">深入React技术栈系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/随笔/">随笔</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/keyCode/" style="font-size: 15px;">keyCode</a> <a href="/tags/CSS/" style="font-size: 15px;">CSS</a> <a href="/tags/函数式编程/" style="font-size: 15px;">函数式编程</a> <a href="/tags/Mac/" style="font-size: 15px;">Mac</a> <a href="/tags/Markdown/" style="font-size: 15px;">Markdown</a> <a href="/tags/RequireJS/" style="font-size: 15px;">RequireJS</a> <a href="/tags/Mobile/" style="font-size: 15px;">Mobile</a> <a href="/tags/埋点/" style="font-size: 15px;">埋点</a> <a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a> <a href="/tags/日期/" style="font-size: 15px;">日期</a> <a href="/tags/跨域/" style="font-size: 15px;">跨域</a> <a href="/tags/vue-cli/" style="font-size: 15px;">vue-cli</a> <a href="/tags/React/" style="font-size: 15px;">React</a> <a href="/tags/Git/" style="font-size: 15px;">Git</a> <a href="/tags/Github/" style="font-size: 15px;">Github</a> <a href="/tags/验证码/" style="font-size: 15px;">验证码</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/09/15/Mac常用快捷键/">Mac常用快捷键</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/07/12/【JavaScript】埋点/">【JavaScript】埋点</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/07/10/【JavaScript】日历的键盘事件/">【JavaScript】日历的键盘事件</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/15/【JavaScript】日期处理集锦/">【JavaScript】日期处理集锦</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/17/【JavaScript】移动端上滑加载分页数据/">【JavaScript】移动端上滑加载分页数据</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/27/图形验证码/">图形验证码</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/16/【Vue】vue-cli的配置说明/">【Vue】vue-cli的配置说明</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/08/【JavaScript】跨域问题/">【JavaScript】跨域问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/29/【JavaScript】上拉加载下拉刷新/">【JavaScript】上拉加载下拉刷新</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/28/【JavaScript】JS模块化工具requirejs教程/">【JavaScript】JS模块化工具requirejs教程</a></li></ul></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2019 <a href="/." rel="nofollow">元气小七.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
