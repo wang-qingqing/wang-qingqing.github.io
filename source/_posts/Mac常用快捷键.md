@@ -39,3 +39,7 @@ tags:
 8. npm全局安装(使用sudo开启系统管理员权限)
 
         sudo npm install XXX -g
+
+9. 强制退出某应用
+
+        command + option + shift + esc 
