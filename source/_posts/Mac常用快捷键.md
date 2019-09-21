@@ -43,3 +43,9 @@ tags:
 9. 强制退出某应用
 
         command + option + shift + esc 
+
+10. 撤销
+        command + z
+ 
+11. 恢复撤销
+        command + shift + z 
