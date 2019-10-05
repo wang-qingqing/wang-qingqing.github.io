@@ -136,7 +136,28 @@ categories:  Vue
         }));
 ```
 
+13. v-model **用于表单数据的双向绑定**
+```
+    <el-input v-model="employeeName"></el-input>
 
+    双向绑定数据                             
+```
+
+14. computed
+```
+    比较适合对多个变量或者对象进行处理后返回一个结果值
+    
+    computed: {
+		orderStatusEnums() {
+			return enums.orderStatus;
+		},
+    }
+```
+
+15. watch
+```
+    watch主要用于监控vue实例的变化，它监控的变量当然必须在data里面声明才可以，它可以监控一个变量，也可以是一个对象
+```
 
 
 
