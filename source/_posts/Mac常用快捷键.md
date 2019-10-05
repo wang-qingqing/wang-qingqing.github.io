@@ -25,11 +25,13 @@ tags:
         command + tab
 
 5. 切换输入法
-        
-        caps locks
 
-6. 大小写切换
-    
+        control + 空格
+        或
+        caps locks（开启了大写锁定健切换时ABC时）
+
+6. 大小写切换（开启了大写锁定健切换时ABC时）
+
         长按 caps locks
 
 7. 查看隐藏的文件夹

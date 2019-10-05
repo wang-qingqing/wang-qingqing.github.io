@@ -12,44 +12,131 @@ categories:  Vue
     在对应的components可以通过：this.$route.params.orderId 来获取路由上的 orderId。
 ```
 
-2. v-html
+2. v-html  **展示html解析后的内容**
+```
+    {{ }}：将元素当成纯文本输出
+    v-text：会将元素当成纯文本输出
+    v-html：会将元素当成HTML标签解析后输出
+
+    <span v-html="item"></span>
 ```
 
+3. 父组件传值给子组件 **props**
 ```
+    父组件的引用：
+    <child :info="info"></child>
 
-3. 父组件传值给子组件 props
-```
-
-```
-
-4. template scope  
-```
-slot-scope="scope"
-```
-
-5. filters
-```
-```
-
-6. data
-
-7. methods
-
-8. created
-```
+    子组件内：
+    props: {
+        info: Object
+    },
+    或
+    props: ['info']
 
 ```
 
-9. 常用的plugin
-富文本编辑器：quill
-日期处理：moment
+4. 子组件调父组件的方法 **$emit**
+```
+    父组件有个方法：queryOrderList(requestParams)
 
-10. axios 接口调用的异常处理
+    子组件想要调用父组件的这个方法：
+    this.$emit('queryOrderList',requestParams);
 ```
 
+5. template scope  **插槽**
+```
+    在使用el-table中，如果不能直接使用数据的字段，需要转换的时候，可以借助插槽来写。
+
+    <el-table-column
+        label="数量">
+        <template slot-scope="scope">
+            <span v-if="scope.row.adultCount > 0">{{scope.row.adultCount}}大</span>
+        </template>
+    </el-table-column>
 ```
 
-11. 
+6. filters **过滤器**
+```
+    filters: {     
+        //日期格式化
+        dateFormat (date,type){
+            return dateUtils.dateFormat(date,type);
+        },
+    },
+
+    <span>{{info.bookDate | dateFormat("YYYY-MM-DD")}}</span>
+
+    filters的第一个参数就是|前面的字段，第二个参数是括号里的第一个，以此类推。
+
+```
+
+7. data
+```
+	data() {
+    	return {
+			info: {},
+        }
+    }
+```
+
+8. methods 方法
+```
+    methods: {
+        a() {
+
+        },
+        b() {
+
+        }
+    }
+
+    <button @click=”add(2,$event)”>add</button> 
+    其中$event是包含了大部分鼠标事件的属性
+```
+
+9. created
+```
+    在生命周期created()的时候，可以发起异步接口请求。
+```
+
+10. components
+```
+    引入组件的方式：
+
+    import orderTable from "xxx";
+    components: {
+	    orderTable
+    }
+```
+
+
+11. 常用的plugin
+```
+    富文本编辑器：quill
+    日期处理：moment
+```
+
+12. axios 接口调用的异常处理：**then...catch**
+```
+    建议使用catch这种捕获异常的处理方式：
+
+    axios
+        .post(url, requestParams)
+        .then(resp => {
+            if(resp.data && resp.data.success){
+                //next handle
+            }else{
+                throw new Error(resp.data.msg);
+            }   
+        })
+        .catch(err => this.$message({
+            showClose: true,
+            message: err,
+            type: 'error'
+        }));
+```
+
+
 
 
 
