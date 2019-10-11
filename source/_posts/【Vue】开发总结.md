@@ -28,6 +28,14 @@ categories:  Vue
 
     子组件内：
     props: {
+        info: {
+            type: Object,
+            default() {
+                return {}
+            }
+        }
+    }
+    props: {
         info: Object
     },
     或
@@ -159,7 +167,70 @@ categories:  Vue
     watch主要用于监控vue实例的变化，它监控的变量当然必须在data里面声明才可以，它可以监控一个变量，也可以是一个对象
 ```
 
+16. v-for
+```
+    <div v-for="(item,key) in data" :key="item.id">
+    </div>
+```
 
+17. 一个table，点击“添加”按钮，新增一行
+```
+    1. 先定义
+    let addData = [];
+    let addIndex = 0;
+
+    2. 点击添加时，执行这个操作
+    addData.push({
+        index: addIndex++
+    })
+
+    3. 如果新增的每行都有个“删除”按钮，则传入当前行的index，执行以下操作
+    for(let i = 0; i < addData.length;i++){
+        if(index == addData[i].index){
+            addData.splice(i,1);
+        }
+    }
+
+    4. 在页面渲染addData时，需要设置key，防止出现显示问题。
+    <addRow v-for="(item,key) in addData" :key="item.index">
+    </addRow>
+```
+
+18. input、select等表单控件，校验不合法后，外边框标红
+```
+    1. 定义error的class
+        .error {
+            border: 1px solid #ff0000;
+        }
+
+    2. 定义error的标识字段
+        data(){
+            return {
+                errorFlag: false,
+                val: ''
+            }
+        }
+
+    3. 绑定blur事件，用于触发合法性校验
+        <input v-model="val"
+            :class="errorClass"
+            @blur="validate"></input>
+
+        computed: {
+            errorClass() {
+                return this.errorFlag?"error":"";
+            }
+        }
+
+    4. 合法性校验
+        methods: {
+            validate() {
+                this.errorFlag = !this.val;
+            }
+        }
+```
+
+19. 
 
 
 
