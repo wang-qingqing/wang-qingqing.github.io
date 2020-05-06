@@ -1,9 +1,9 @@
 ---
-title: CSS世界
+title: 【CSS世界系列】目录
 date: 2018-08-05
 categories:  CSS世界系列
 tags:
-    - CSS
+    - 目录
 toc: true
 ---
 此篇博客记录的是《CSS世界》的文章目录。

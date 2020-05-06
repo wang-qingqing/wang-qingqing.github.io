@@ -1,9 +1,9 @@
 ---
-title: 深入React技术栈
+title: 【深入React技术栈系列】目录
 date: 2018-08-16
 categories:  深入React技术栈系列
 tags:
-    - React
+    - 目录
 toc: true
 ---
 此篇博客记录的是《深入React技术栈》的文章目录。

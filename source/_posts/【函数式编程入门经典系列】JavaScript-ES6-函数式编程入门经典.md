@@ -1,9 +1,9 @@
 ---
-title: JavaScript ES6 函数式编程入门经典
+title: 【函数式编程入门经典系列】目录
 date: 2018-06-23
 categories:  函数式编程入门经典系列
 tags:
-    - 函数式编程
+    - 目录
 toc: true
 ---
 此篇博客记录的是《JavaScript ES6 函数式编程入门经典》的文章目录。
