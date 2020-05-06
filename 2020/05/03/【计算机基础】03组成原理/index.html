@@ -1,0 +1,76 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>【计算机基础】03组成原理 | 元气小七</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">【计算机基础】03组成原理</h1><a id="logo" href="/.">元气小七</a><p class="description">每天都要元气满满的哦~</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">【计算机基础】03组成原理</h1><div class="post-meta">May 3, 2020<span> | </span><span class="category"><a href="/categories/计算机基础/">计算机基础</a></span><script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> 阅读</span></span></div><div class="post-content"><p>总结下组成原理的基础知识。</p>
+<a id="more"></a>
+<h3 id="计算机历史"><a href="#计算机历史" class="headerlink" title="计算机历史"></a>计算机历史</h3><ol>
+<li><p>世界上第一台电子计算机诞生于<strong>1946年</strong>。</p>
+</li>
+<li><p>1968年6月，世界上最早的计算机网络是arpanet。它是internet的前身。</p>
+</li>
+<li><p>1991年6月，我国第一条与国际互联网连接的专线建成，它从<strong>中国科学院高能物理研究所</strong>连接到美国斯坦福大学的直线加速器中心。</p>
+</li>
+<li><p>到1994年，我国才实现了采用TCP/ IP协议的国际互联网的全功能连接，可以通过4大主干网接入因特网。</p>
+</li>
+<li><p>世界上首次提出存储程序计算机体系结构的是 <strong>冯.诺伊曼</strong>。</p>
+</li>
+<li><p>电子计算机根据电子元件划分为<strong>电子管时代、晶体管时代、集成电路时代和超大规模集成电路时代</strong>。</p>
+</li>
+<li><p>第一代计算机主要使用机器语言，<br>第二代计算机使用汇编语言，<br>第三代计算机使用高级语言。</p>
+</li>
+</ol>
+<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><ol>
+<li><p>完整的计算机系统由硬件系统和软件系统组成。</p>
+</li>
+<li><p>汇编语言依赖于计算机的低级程序设计语言。</p>
+</li>
+<li><p>在微型计算机中，运算器和控制器合称为 <strong>微处理器</strong>。<br>这两个也是组成计算机cpu的两大核心。</p>
+</li>
+<li><p>运算器的主要功能是 <strong>算术运算和逻辑运算</strong>。</p>
+</li>
+<li><p>主板上的cmos芯片主要用途是：<strong>储存时间、日期、硬盘参数与计算机配置信息</strong>。</p>
+</li>
+<li><p>在计算机系统中采用总线结构，便于实现系统的积木化构造，同时可以减少信息传输线的数量。</p>
+</li>
+<li><p>总线一般都指系统总线，系统总线上有三类信号：<strong>数据信号、地址信号和控制信号</strong>。</p>
+</li>
+<li><p>32位微机中的32是指该微机能同时处理32位二进制数。</p>
+</li>
+</ol>
+<h3 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h3><ol>
+<li><p>cpu在<strong>管态</strong>下可以执行计算机的一切指令。</p>
+</li>
+<li><p>计算机字长取决于 <strong>数据总线</strong> 的宽度。通常是cpu一次能处理的数据的位数。</p>
+</li>
+<li><p>用以指定待执行指令所在地址的是：程序计数器。（cpu中用于跟踪指令地址的寄存器）<br>程序计数器pc是用来指出下一条指令所在主存中的存放地址。<br>cpu正是根据pc的内容从主存中取得指令的，因为程序中指令是按顺序存放的，所以pc有自动加一功能。</p>
+</li>
+<li><p>寄存器存放当前的瞬间正在操作使用的数据，其余的大量数据则存放在存储器中。</p>
+</li>
+</ol>
+<h3 id="存储"><a href="#存储" class="headerlink" title="存储"></a>存储</h3><ol>
+<li><p>存储管理的目的是尽可能得方便用户使用、提高主存利用率。</p>
+</li>
+<li><p>计算机的存储容量是以字节（b）为基本单位计算的。常见单位有b,kb,mb,gb,tb.</p>
+</li>
+<li><p>计算机的存储器分为内存储器和外存储器。<br> （1）主（内）存用来存放程序和数据。按照其工作方式的不同分为随机存储器（RAM）、只读存储器（ROM）；</p>
+<p> （2）外存储器存放的数据在断电后不会失去，则包括磁盘、光盘、磁带、u盘等。</p>
+</li>
+<li><p>访问周期最短的是：内存储器。</p>
+</li>
+<li><p>RAM具有随机存取和易失性。电源关闭时，RAM数据不能保留。</p>
+</li>
+<li><p>微型计算机的内存容量主要指RAM。</p>
+</li>
+<li><p>ROM是只能读出不能随意写入信息的存储器。<br>ROM中的内容是由厂家制造时用特殊方法写入的，或者利用特殊的写入器才能写入；<br>当计算机断电后，ROM的信息不会丢失。</p>
+</li>
+<li><p>内存中进程的数量越多越能提高系统的并发度和效率。这是错的。</p>
+</li>
+<li><p>虚拟存储技术是补充相对地址空间的技术。这样的虚拟存储容量是利用 <strong>硬盘</strong> 的存储空间来实现的。</p>
+</li>
+<li><p>支持程序浮动的地址转换机制是 <strong>动态重定位</strong>。</p>
+</li>
+<li><p>cache：高速缓存存储器，位于cpu和主存储器之间。</p>
+</li>
+<li><p>磁盘存储器存、取信息的最基本单位是： <strong>扇区</strong>。一个扇区是512个字节。</p>
+</li>
+<li><p>存储器中存放的信息可以是数据，也可以是指令，这是要<strong>根据CPU执行程序的过程</strong>来判断的。</p>
+</li>
+</ol>
+</div><div class="tags"><a href="/tags/组成原理/">组成原理</a></div><div class="post-nav"><a class="pre" href="/2020/05/04/【计算机基础】04操作系统/">【计算机基础】04操作系统</a><a class="next" href="/2020/05/02/【计算机基础】02数据库/">【计算机基础】02数据库</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"><input type="hidden" name="sitesearch" value="https://wang-qingqing.github.io"></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CSS世界系列/">CSS世界系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/函数式编程入门经典系列/">函数式编程入门经典系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具类/">工具类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/深入React技术栈系列/">深入React技术栈系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机基础/">计算机基础</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/随笔/">随笔</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/Git/" style="font-size: 15px;">Git</a> <a href="/tags/CSS/" style="font-size: 15px;">CSS</a> <a href="/tags/函数式编程/" style="font-size: 15px;">函数式编程</a> <a href="/tags/Mac/" style="font-size: 15px;">Mac</a> <a href="/tags/Markdown/" style="font-size: 15px;">Markdown</a> <a href="/tags/RequireJS/" style="font-size: 15px;">RequireJS</a> <a href="/tags/Mobile/" style="font-size: 15px;">Mobile</a> <a href="/tags/埋点/" style="font-size: 15px;">埋点</a> <a href="/tags/keyCode/" style="font-size: 15px;">keyCode</a> <a href="/tags/跨域/" style="font-size: 15px;">跨域</a> <a href="/tags/日期/" style="font-size: 15px;">日期</a> <a href="/tags/vue-cli/" style="font-size: 15px;">vue-cli</a> <a href="/tags/原生JS/" style="font-size: 15px;">原生JS</a> <a href="/tags/锚点/" style="font-size: 15px;">锚点</a> <a href="/tags/React/" style="font-size: 15px;">React</a> <a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a> <a href="/tags/Github/" style="font-size: 15px;">Github</a> <a href="/tags/验证码/" style="font-size: 15px;">验证码</a> <a href="/tags/数据库/" style="font-size: 15px;">数据库</a> <a href="/tags/数据结构/" style="font-size: 15px;">数据结构</a> <a href="/tags/组成原理/" style="font-size: 15px;">组成原理</a> <a href="/tags/操作系统/" style="font-size: 15px;">操作系统</a> <a href="/tags/网络/" style="font-size: 15px;">网络</a> <a href="/tags/软件工程/" style="font-size: 15px;">软件工程</a> <a href="/tags/通用知识/" style="font-size: 15px;">通用知识</a> <a href="/tags/目录/" style="font-size: 15px;">目录</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/05/07/【计算机基础】07通用知识/">【计算机基础】07通用知识</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/05/06/【计算机基础】06软件工程/">【计算机基础】06软件工程</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/05/05/【计算机基础】05网络/">【计算机基础】05网络</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/05/04/【计算机基础】04操作系统/">【计算机基础】04操作系统</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/05/03/【计算机基础】03组成原理/">【计算机基础】03组成原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/05/02/【计算机基础】02数据库/">【计算机基础】02数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/05/01/【计算机基础】01数据结构/">【计算机基础】01数据结构</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/05/01/【计算机基础】目录/">【计算机基础】目录</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/30/【JavaScript】原生js/">【JavaScript】原生JS</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/29/【JavaScript】页面快速定位/">【JavaScript】页面快速定位</a></li></ul></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">元气小七.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
